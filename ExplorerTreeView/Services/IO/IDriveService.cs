@@ -1,9 +1,9 @@
-﻿namespace ExplorerTreeView.Services
+﻿namespace ExplorerTreeView
 {
-    public interface IDriveService
+    interface IDriveService
     {
         string GetLabel(string driveLetter);
-        Models.DriveType GetDriveType(string driveLetter);
+        DriveType GetDriveType(string driveLetter);
         bool Exist(string driveLetter);
     }
 }

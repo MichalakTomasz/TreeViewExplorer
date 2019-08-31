@@ -1,28 +1,14 @@
-﻿using ExplorerTreeView.Services;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
-namespace ExplorerTreeView.Converters
+namespace ExplorerTreeView
 {
-    public class StringToImagePathConverter :
+    class StringToImagePathConverter :
         IValueConverter
     {
-        public StringToImagePathConverter(IFileService fileService)
-        {
-            FileService = fileService;
-        }
-
-        private IFileService FileService { get; }
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             switch (value.ToString())

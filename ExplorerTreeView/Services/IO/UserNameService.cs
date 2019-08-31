@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public class UserNameService 
-        : IUserNameService
+    static class UserNameService
     {
-        public string LoggedUser => Environment.UserName;
+        public static string LoggedUser => Environment.UserName;
     }
 }

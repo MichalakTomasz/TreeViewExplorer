@@ -1,27 +1,24 @@
-﻿using ExplorerTreeView.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace ExplorerTreeView.Models
+namespace ExplorerTreeView
 {
-    public class FileNode
+    class FileNode
         : IFileNode
     {
         #region Constructor
 
-        public FileNode() { }
+        internal FileNode() { }
 
-        public FileNode(
+        internal FileNode(
             string text,
-            IPathService pathService,
-            INodeImageNameCreator nodeImageNameCreator,
             IBaseNode parent)
         {
             NodeType = NodeType.File;
             Text = text;
             SubPath = Text;
             Parent = parent;
-            Path = pathService.GetPath(this);
-            ImageName = nodeImageNameCreator.GetName(this);
+            Path = PathService.GetPath(this);
+            ImageName = NodeImageNameCreator.GetName(this);
         }
 
         #endregion//Constructor

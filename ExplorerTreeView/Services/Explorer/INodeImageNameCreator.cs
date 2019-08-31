@@ -1,8 +1,6 @@
-﻿using ExplorerTreeView.Models;
-
-namespace ExplorerTreeView.Services
+﻿namespace ExplorerTreeView
 {
-    public interface INodeImageNameCreator
+    interface INodeImageNameCreator
     {
         string GetName(IBaseNode node);
     }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public class FilesVisibility 
+    class FilesVisibility 
         : IFilesVisibility
     {
         public bool ShowFiles { get; set; } = false;

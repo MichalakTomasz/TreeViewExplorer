@@ -1,21 +1,18 @@
-﻿using ExplorerTreeView.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ExplorerTreeView.Models
+namespace ExplorerTreeView
 {
-    public class FolderNode
+    class FolderNode
         : IFolderNode
     {
         #region Constructor
 
-        public FolderNode() {}
+        internal FolderNode() {}
 
-        public FolderNode(
+        internal FolderNode(
             string text,
-            IPathService pathService,
-            INodeImageNameCreator nodeImageNameCreator,
             IExplorerService explorerService,
             IBaseNode parent)
         {
@@ -23,8 +20,8 @@ namespace ExplorerTreeView.Models
             SubPath = Text;
             NodeType = NodeType.Folder;
             Parent = parent;
-            ImageName = nodeImageNameCreator.GetName(this);
-            Path = pathService.GetPath(this);
+            ImageName = NodeImageNameCreator.GetName(this);
+            Path = PathService.GetPath(this);
             Items = explorerService.CreateEmptyFolderNode(Path);
         }
 

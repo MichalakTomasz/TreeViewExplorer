@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public interface IDirectoriesService
+    interface IDirectoriesService
     {
         IEnumerable<string> GetFolders(string path);
         bool Exist(string path);

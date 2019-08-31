@@ -1,6 +1,6 @@
-﻿namespace ExplorerTreeView.Models
+﻿namespace ExplorerTreeView
 {
-    public interface IParent
+    internal interface IParent
     {
         IBaseNode Parent { get; }
     }

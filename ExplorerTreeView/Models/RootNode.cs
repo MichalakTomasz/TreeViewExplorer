@@ -1,24 +1,19 @@
-﻿using ExplorerTreeView.Services;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ExplorerTreeView.Models
+namespace ExplorerTreeView
 {
-    public class RootNode
+    class RootNode
         : IRootNode
     {
         #region Constructor
 
-        public RootNode(
-            INodeTextCreator nodeTextCreator, 
-            INodeImageNameCreator nodeImageNameCreator,
-            IExplorerService explorerService)
+        internal RootNode(IExplorerService explorerService)
         {
             NodeType = NodeType.Root;
-            Text = nodeTextCreator.GetText(this);
-            ImageName = nodeImageNameCreator.GetName(this);
+            Text = NodeTextCreator.GetText(this);
+            ImageName = NodeImageNameCreator.GetName(this);
             Items = explorerService.CreateEmptyDriveNode();
         }
 

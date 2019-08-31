@@ -1,46 +1,15 @@
-﻿using ExplorerTreeView.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public class ExplorerService
+    class ExplorerService
         : IExplorerService
     {
-        #region Constructor
-
-        public ExplorerService(
-            IUserNameService userNameService,
-            IDriveService driveService,
-            IDrivesService drivesService,
-            IPathService pathService,
-            IDirectoriesService directoriesService,
-            IFileService fileService,
-            INodeTextCreator nodeTextCreator,
-            INodeImageNameCreator nodeImageNameCreator)
-        {
-            DriveService = driveService;
-            DrivesService = drivesService;
-            FileService = fileService;
-            PathService = pathService;
-            DirectoriesService = directoriesService;
-            NodeTextCreator = nodeTextCreator;
-            NodeImageNameCreator = nodeImageNameCreator;
-        }
-
-        #endregion//Constructor
 
         #region Properties
 
-        private IDrivesService DrivesService { get; }
-        private IDriveService DriveService { get; }
-        private IFileService FileService { get; }
-        private IPathService PathService { get; }
-        private IDirectoriesService DirectoriesService { get; }
-        private INodeTextCreator NodeTextCreator { get; }
-        private INodeImageNameCreator NodeImageNameCreator { get; }
         public bool ShowFiles { get; set; }
         public string FilesFilter { get; set; }
         public IRootNode RootNode
@@ -48,7 +17,7 @@ namespace ExplorerTreeView.Services
             get
             {
                 if (_rootNode == null)
-                    return _rootNode = new RootNode(NodeTextCreator, NodeImageNameCreator, this);
+                    return _rootNode = new RootNode(this);
                 return _rootNode;
             }
         }
@@ -183,11 +152,8 @@ namespace ExplorerTreeView.Services
         
         private IDriveNode CreateDriveNode(IBaseNode rootNode, string driveLetter)
         {
-            return new DriveNode(driveLetter,
-                DriveService,
-                PathService,
-                NodeTextCreator,
-                NodeImageNameCreator,
+            return new DriveNode(
+                driveLetter,
                 this,
                 rootNode);
         }
@@ -203,8 +169,6 @@ namespace ExplorerTreeView.Services
             {
                 items.Add(new FolderNode(
                     item,
-                    PathService,
-                    NodeImageNameCreator,
                     this,
                     node));
             }
@@ -222,8 +186,6 @@ namespace ExplorerTreeView.Services
             {
                 items.Add(new FileNode(
                     item,
-                    PathService,
-                    NodeImageNameCreator,
                     node));
             }
         }

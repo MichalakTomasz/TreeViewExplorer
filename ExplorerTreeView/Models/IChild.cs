@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace ExplorerTreeView.Models
+namespace ExplorerTreeView
 {
-    public interface IChild
+    internal interface IChild
     {
         IEnumerable<IBaseNode> Items { get; set; }
     }

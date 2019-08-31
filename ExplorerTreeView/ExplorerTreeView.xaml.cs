@@ -1,23 +1,11 @@
-﻿using ExplorerTreeView.Models;
-using ExplorerTreeView.Services;
-using ExplorerTreeView.Common;
+﻿using Autofac;
 using Ninject;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using ExplorerTreeView.Converters;
 
 namespace ExplorerTreeView
 {
@@ -27,22 +15,6 @@ namespace ExplorerTreeView
 
         public ExplorerTreeView()
         {
-            var kernel = new StandardKernel();
-
-            kernel.Bind<IFilesVisibility>().To<FilesVisibility>();
-            kernel.Bind<IDirectoriesService>().To<DirectoriesService>();
-            kernel.Bind<IDrivesService>().To<DrivesService>();
-            kernel.Bind<IDriveService>().To<DriveService>();
-            kernel.Bind<IFileService>().To<FileService>();
-            kernel.Bind<IPathService>().To<PathService>();
-            kernel.Bind<INodeImageNameCreator>().To<NodeImageNameCreator>();
-            kernel.Bind<INodeTextCreator>().To<NodeTextCreator>();
-            kernel.Bind<IUserNameService>().To<UserNameService>();
-
-            ExplorerService = kernel.Get<ExplorerService>();
-            IFileService fileService = kernel.Get<FileService>();
-            Resources.Add("StringToImagePathConverter", new StringToImagePathConverter(fileService));
-
             InitializeComponent();
 
             _rootNode = ExplorerService.RootNode;
@@ -114,9 +86,6 @@ namespace ExplorerTreeView
         public static readonly DependencyProperty ExpandPathProperty =
             DependencyProperty.Register("ExpandPath", typeof(string), typeof(ExplorerTreeView), new PropertyMetadata(string.Empty, OnExpandPathChanged));
 
-        /// <summary>
-        /// Files filter can show only files with specific extension, exemple: ".txt|.doc"
-        /// </summary>
         public string FilesFilter
         {
             get { return (string)GetValue(FilesFilterProperty); }
@@ -241,7 +210,7 @@ namespace ExplorerTreeView
 
         private Node CreateExplorerNode(IBaseNode node)
         {
-            var newNode = new Node(new DirectoriesService(), new FileService(), FilesFilter);
+            var newNode = new Node(FilesFilter);
             if (node is IRootNode)
                 newNode.Path = string.Empty;
             else newNode.Path = (node as IPath).Path;
@@ -288,7 +257,7 @@ namespace ExplorerTreeView
 
         #region Properties
 
-        private ExplorerService ExplorerService { get; }
+        private ExplorerService ExplorerService { get; } = new ExplorerService();
 
         #endregion//Properties
 
@@ -305,6 +274,5 @@ namespace ExplorerTreeView
         private DispatcherTimer _dispatcherTimer;
 
         #endregion//Fields
-
     }
 }

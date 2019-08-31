@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace ExplorerTreeView.Models
+namespace ExplorerTreeView
 {
-    public interface IRootNode :
+    internal interface IRootNode :
         IBaseNode, 
         IChild, 
         IExpandable,

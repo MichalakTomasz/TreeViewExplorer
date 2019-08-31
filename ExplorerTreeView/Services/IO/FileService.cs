@@ -7,12 +7,11 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public class FileService 
-        : IFileService
+    static class FileService
     {
-        public IEnumerable<string> GetFiles(string path, string filesFilter = null)
+        public static IEnumerable<string> GetFiles(string path, string filesFilter = null)
         {
             try
             {
@@ -49,7 +48,7 @@ namespace ExplorerTreeView.Services
             }
         }
 
-        public int GetFilesCount(string path)
+        public static int GetFilesCount(string path)
         {
             try
             {
@@ -76,7 +75,7 @@ namespace ExplorerTreeView.Services
             }
         }
 
-        public string GetExtension(string path)
+        public static string GetExtension(string path)
         {
             try
             {
@@ -96,23 +95,23 @@ namespace ExplorerTreeView.Services
             }
         }
 
-        public bool Exist(string path)
+        public static bool Exist(string path)
         {
             return File.Exists(path);
         }
 
-        public string GetFileName(string path)
+        public static string GetFileName(string path)
         {
             return Path.GetFileName(path);
         }
 
-        public bool IsFile(string path)
+        public static bool IsFile(string path)
         {
             if (File.Exists(path)) return true;
             else return false;
         }
         
-        public BitmapSource GetIconFromFilePath(string path)
+        public static BitmapSource GetIconFromFilePath(string path)
         {
             var icon = System.Drawing.Icon.ExtractAssociatedIcon(path);
             return Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());

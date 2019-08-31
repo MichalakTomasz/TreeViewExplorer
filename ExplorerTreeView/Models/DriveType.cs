@@ -1,6 +1,6 @@
-﻿namespace ExplorerTreeView.Models
+﻿namespace ExplorerTreeView
 {
-    public enum DriveType
+    enum DriveType
     {
         Hdd,
         CdRom,

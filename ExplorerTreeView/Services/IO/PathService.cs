@@ -1,12 +1,10 @@
-﻿using ExplorerTreeView.Models;
-using System.Text;
+﻿using System.Text;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public class PathService 
-        : IPathService
+    static class PathService
     {
-        public string GetPath(IPath node)
+        public static string GetPath(IPath node)
         {
             var tempNode = node;
             var sbuilder = new StringBuilder();

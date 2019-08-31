@@ -2,17 +2,16 @@
 using System.IO;
 using System.Linq;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public class DrivesService :
-        IDrivesService
+    static class DrivesService 
     {
-        public IEnumerable<string> DriveNames
+        public static IEnumerable<string> DriveNames
             => DriveInfo.GetDrives()
             .Select(s => s.Name.Substring(0, 1))
             .ToList();
 
-        public int GetDrivesCount() 
+        public static int GetDrivesCount() 
             => DriveInfo.GetDrives().Count();
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace ExplorerTreeView.Services
+﻿namespace ExplorerTreeView
 {
-    public interface IFilesVisibility
+    interface IFilesVisibility
     {
         bool ShowFiles { get; set; }
     }

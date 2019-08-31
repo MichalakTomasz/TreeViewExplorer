@@ -1,41 +1,39 @@
 ﻿using System.IO;
-
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public class DriveService 
-        : IDriveService
+    static class DriveService
     {
-        public string GetLabel(string driveLetter)
+        public static string GetLabel(string driveLetter)
         {
             var drive = new DriveInfo(driveLetter);
             return drive.IsReady ? drive.VolumeLabel : "";
         }
         
-        public Models.DriveType GetDriveType(string driveLetter)
+        public static DriveType GetDriveType(string driveLetter)
         {
             var drives = new DriveInfo(driveLetter);
             switch (drives.DriveType)
             {
-                case DriveType.Unknown:
-                    return Models.DriveType.Unknown;
-                case DriveType.NoRootDirectory:
-                    return Models.DriveType.Unknown;
-                case DriveType.Removable:
-                    return Models.DriveType.Hdd;
-                case DriveType.Fixed:
-                    return Models.DriveType.Hdd;
-                case DriveType.Network:
-                    return Models.DriveType.Unknown;
-                case DriveType.CDRom:
-                    return Models.DriveType.CdRom;
-                case DriveType.Ram:
-                    return Models.DriveType.Unknown;
+                case System.IO.DriveType.Unknown:
+                    return DriveType.Unknown;
+                case System.IO.DriveType.NoRootDirectory:
+                    return DriveType.Unknown;
+                case System.IO.DriveType.Removable:
+                    return DriveType.Hdd;
+                case System.IO.DriveType.Fixed:
+                    return DriveType.Hdd;
+                case System.IO.DriveType.Network:
+                    return DriveType.Unknown;
+                case System.IO.DriveType.CDRom:
+                    return DriveType.CdRom;
+                case System.IO.DriveType.Ram:
+                    return DriveType.Unknown;
                 default:
-                    return Models.DriveType.Unknown;
+                    return DriveType.Unknown;
             }
         }
 
-        public bool Exist(string path)
+        public static bool Exist(string path)
         {
             return Directory.Exists(path);
         }

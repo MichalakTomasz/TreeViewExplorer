@@ -1,10 +1,8 @@
-﻿using ExplorerTreeView.Models;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public interface IExplorerService
+    interface IExplorerService
         : IFilesVisibility
     {
         void RefreshNode(IBaseNode node);

@@ -1,6 +1,6 @@
-﻿namespace ExplorerTreeView.Models
+﻿namespace ExplorerTreeView
 {
-    public interface IExpandable
+    internal interface IExpandable
     {
         bool IsExpanded { get; set; }
     }

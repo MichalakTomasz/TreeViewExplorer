@@ -4,12 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Security;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public class DirectoriesService
-        : IDirectoriesService
+    static class DirectoriesService
     {
-        public IEnumerable<string> GetFolders(string path)
+        public static IEnumerable<string> GetFolders(string path)
         {
             try
             {
@@ -37,7 +36,7 @@ namespace ExplorerTreeView.Services
             }
         }
 
-        public int GetFoldersCount(string path)
+        public static int GetFoldersCount(string path)
         {
             try
             {
@@ -64,12 +63,12 @@ namespace ExplorerTreeView.Services
             }
         }
 
-        public bool Exist(string path)
+        public static bool Exist(string path)
         {
             return Directory.Exists(path);
         }
 
-        public string GetFolderName(string path)
+        public static string GetFolderName(string path)
         {
             return Path.GetDirectoryName(path);
         }

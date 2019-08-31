@@ -1,21 +1,12 @@
-﻿using ExplorerTreeView.Services;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ExplorerTreeView.Models
+namespace ExplorerTreeView
 {
     public class Node
     {
-        public Node(IDirectoriesService directoriesService, IFileService fileService, string filesFilter = null)
-        {
-            DirectoriesService = directoriesService;
-            FileService = fileService;
-            Path = string.Empty;
-            FilesFilter = filesFilter;
-        }
+        internal Node(string filesFilter = null)
+            => FilesFilter = filesFilter;
 
         public string Path { get; set; }
         public IEnumerable<string> Folders
@@ -42,9 +33,6 @@ namespace ExplorerTreeView.Models
                 return Enumerable.Empty<string>();
             }
         }
-
-        private IFileService FileService { get; }
-        private IDirectoriesService DirectoriesService { get; }
         private string FilesFilter { get; }
     }
 

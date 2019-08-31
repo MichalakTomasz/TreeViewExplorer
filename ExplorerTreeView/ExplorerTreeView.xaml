@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:ExplorerTreeView"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="300">
+    <UserControl.Resources>
+        <local:StringToImagePathConverter x:Key="StringToImagePathConverter"/>
+    </UserControl.Resources>
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">

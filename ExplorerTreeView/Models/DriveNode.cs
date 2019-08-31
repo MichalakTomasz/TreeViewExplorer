@@ -1,35 +1,29 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using ExplorerTreeView.Services;
 
-namespace ExplorerTreeView.Models
+namespace ExplorerTreeView
 {
-    public class DriveNode
+    class DriveNode
         : IDriveNode
     {
         #region Constructor
 
-        public DriveNode() { }
+        internal DriveNode() { }
 
-        public DriveNode(
+        internal DriveNode(
             string letter,
-            IDriveService driveService,
-            IPathService pathService,
-            INodeTextCreator nodeTextCreator,
-            INodeImageNameCreator nodeImageNameCreator,
             IExplorerService explorerService,
             IBaseNode parent)
         {
             NodeType = NodeType.Drive;
             Letter = letter;
             Parent = parent;
-            DriveType = driveService.GetDriveType(Letter);
-            Path = pathService.GetPath(this);
+            DriveType = DriveService.GetDriveType(Letter);
+            Path = PathService.GetPath(this);
             SubPath = letter;
-            ImageName = nodeImageNameCreator.GetName(this);
-            Text = nodeTextCreator.GetText(this);
+            ImageName = NodeImageNameCreator.GetName(this);
+            Text = NodeTextCreator.GetText(this);
             Items = explorerService.CreateEmptyFolderNode(Path);
         }
 

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public interface IFileService
+    interface IFileService
     {
         IEnumerable<string> GetFiles(string path, string filesFilter = null);
         string GetExtension(string path);

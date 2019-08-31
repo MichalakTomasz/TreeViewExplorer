@@ -1,8 +1,6 @@
-﻿using ExplorerTreeView.Models;
-
-namespace ExplorerTreeView.Services
+﻿namespace ExplorerTreeView
 {
-    public interface IPathService
+    interface IPathService
     {
         string GetPath(IPath node);
     }

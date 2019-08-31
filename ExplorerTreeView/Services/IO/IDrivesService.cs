@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace ExplorerTreeView.Services
+namespace ExplorerTreeView
 {
-    public interface IDrivesService
+    interface IDrivesService
     {
         IEnumerable<string> DriveNames { get; }
         int GetDrivesCount();

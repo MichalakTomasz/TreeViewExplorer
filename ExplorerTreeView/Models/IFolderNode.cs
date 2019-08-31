@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExplorerTreeView.Models
+namespace ExplorerTreeView
 {
-    public interface IFolderNode :
+    internal interface IFolderNode :
         IBaseNode,
         IPath,
         IParent,

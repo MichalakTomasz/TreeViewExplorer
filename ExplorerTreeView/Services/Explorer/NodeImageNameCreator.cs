@@ -1,21 +1,10 @@
-﻿using ExplorerTreeView.Models;
-
-namespace ExplorerTreeView.Services
+﻿namespace ExplorerTreeView
 {
-    public class NodeImageNameCreator : INodeImageNameCreator
+    static class NodeImageNameCreator
     {
-        #region Constructor
-
-        public NodeImageNameCreator(IDriveService driveService)
-        {
-            DriveService = driveService;
-        }
-
-        #endregion//Constructor
-
         #region Methods
 
-        public string GetName(IBaseNode explorerNode)
+        public static string GetName(IBaseNode explorerNode)
         {
             switch (explorerNode.NodeType)
             {
@@ -35,12 +24,6 @@ namespace ExplorerTreeView.Services
         }
 
         #endregion//Methods
-        
-        #region Properties
-
-        private IDriveService DriveService { get; }
-
-        #endregion//Properties
 
     }
 }

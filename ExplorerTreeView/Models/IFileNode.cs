@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExplorerTreeView.Models
+namespace ExplorerTreeView
 {
-    public interface IFileNode :
+    internal interface IFileNode :
         IBaseNode,
         IPath,
         IParent

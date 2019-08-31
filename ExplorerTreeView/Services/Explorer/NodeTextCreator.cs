@@ -1,29 +1,10 @@
-﻿using ExplorerTreeView.Models;
-
-namespace ExplorerTreeView.Services
+﻿namespace ExplorerTreeView
 {
-    public class NodeTextCreator 
-        : INodeTextCreator
+    static class NodeTextCreator
     {
-        #region Constructor
-
-        public NodeTextCreator(
-            IUserNameService userNameService,
-            IDriveService driveService,
-            IDirectoriesService directoriesService,
-            IFileService fileService)
-        {
-            UserNameService = userNameService;
-            DriveService = driveService;
-            DirectoriesService = directoriesService;
-            FileService = fileService;
-        }
-
-        #endregion//Constructor
-
         #region Methods
 
-        public string GetText(IBaseNode node)
+        public static string GetText(IBaseNode node)
         {
             switch (node.NodeType)
             {
@@ -46,14 +27,5 @@ namespace ExplorerTreeView.Services
         }
 
         #endregion//Methods
-
-        #region Properties
-
-        private IUserNameService UserNameService { get; }
-        private IDriveService DriveService { get; }
-        private IDirectoriesService DirectoriesService { get; }
-        private IFileService FileService { get; }
-
-        #endregion//Properties
     }
 }

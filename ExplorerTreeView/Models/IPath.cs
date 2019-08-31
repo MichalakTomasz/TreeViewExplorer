@@ -1,6 +1,6 @@
-﻿namespace ExplorerTreeView.Models
+﻿namespace ExplorerTreeView
 {
-    public interface IPath
+    internal interface IPath
     {
         string Path { get; }
         string SubPath { get; }

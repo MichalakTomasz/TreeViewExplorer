@@ -1,8 +1,6 @@
-﻿using ExplorerTreeView.Models;
-
-namespace ExplorerTreeView.Services
+﻿namespace ExplorerTreeView
 {
-    public interface INodeTextCreator
+    interface INodeTextCreator
     {
         string GetText(IBaseNode explorerNode);
     }

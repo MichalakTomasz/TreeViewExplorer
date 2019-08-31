@@ -1,6 +1,6 @@
-﻿namespace ExplorerTreeView.Services
+﻿namespace ExplorerTreeView
 {
-    public interface IUserNameService
+    interface IUserNameService
     {
         string LoggedUser { get; }
     }
