@@ -8,17 +8,28 @@ namespace ExplorerTreeView
 {
     static class DirectoriesService
     {
-        public static IEnumerable<string> GetFolders(string path)
+        public static IEnumerable<string> GetFolders(string path, bool fullPath = false)
         {
             try
             {
                 if (new DriveInfo(path).IsReady)
                 {
-                    return new DirectoryInfo(path)
+                    if (fullPath)
+                    {
+                        return new DirectoryInfo(path)
+                        .EnumerateDirectories()
+                        .Where(d => (d.Attributes & (FileAttributes.Hidden | FileAttributes.System)) == 0)
+                        .Select(f => f.FullName)
+                        .ToList();
+                    }
+                    else
+                    {
+                        return new DirectoryInfo(path)
                         .EnumerateDirectories()
                         .Where(d => (d.Attributes & (FileAttributes.Hidden | FileAttributes.System)) == 0)
                         .Select(f => f.Name)
                         .ToList();
+                    }
                 }
                 else return Enumerable.Empty<string>();
             }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -91,6 +94,60 @@ namespace ExplorerTreeView
             DependencyProperty.Register(
                 "SelectedNode", 
                 typeof(Node), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null));
+
+        public IEnumerable<string> FoldersNames
+        {
+            get { return (IEnumerable<string>)GetValue(FoldersNamesProperty); }
+            set { SetValue(FoldersNamesProperty, value); }
+        }
+
+        public static readonly DependencyProperty FoldersNamesProperty =
+            DependencyProperty.Register(
+                "FoldersNames", 
+                typeof(IEnumerable<string>), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null));
+        
+        public IEnumerable<string> FoldersFullPath
+        {
+            get { return (IEnumerable<string>)GetValue(FoldersFullPathProperty); }
+            set { SetValue(FoldersFullPathProperty, value); }
+        }
+
+        public static readonly DependencyProperty FoldersFullPathProperty =
+            DependencyProperty.Register(
+                "FoldersFullPath", 
+                typeof(IEnumerable<string>), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null));
+
+        public IEnumerable<string> FilesNames
+        {
+            get { return (IEnumerable<string>)GetValue(FilesNamesProperty); }
+            set { SetValue(FilesNamesProperty, value); }
+        }
+
+        public static readonly DependencyProperty FilesNamesProperty =
+            DependencyProperty.Register(
+                "FilesNames", 
+                typeof(IEnumerable<string>), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null));
+
+
+
+        public IEnumerable<string> FilesFullPath
+        {
+            get { return (IEnumerable<string>)GetValue(FilesFullPathProperty); }
+            set { SetValue(FilesFullPathProperty, value); }
+        }
+
+        public static readonly DependencyProperty FilesFullPathProperty =
+            DependencyProperty.Register(
+                "FilesFullPath", 
+                typeof(IEnumerable<string>), 
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null));
 
@@ -234,6 +291,11 @@ namespace ExplorerTreeView
             {
                 ExplorerService.RefreshNode(node);
                 SelectedNode = CreateExplorerNode(node);
+                if (SelectedNode?.FoldersNames?.Count() > 0) FoldersNames = new List<string>(SelectedNode.FoldersNames);
+                if (SelectedNode?.FoldersFullPath?.Count() > 0) FoldersFullPath = new List<string>(SelectedNode.FoldersFullPath);
+                if (SelectedNode?.FilesNames?.Count() > 0) FilesNames = new List<string>(SelectedNode.FilesNames);
+                if (SelectedNode?.FilesFullPath?.Count() > 0) FilesFullPath = new List<string>(SelectedNode.FilesFullPath);
+
                 if (NodeLeftButtonMouseClick != null)
                     NodeLeftButtonMouseClick(this, new NodeMouseClickEventArgs(SelectedNode));
                 if (Command != null)

@@ -11,32 +11,60 @@ namespace ExplorerTreeView
 {
     static class FileService
     {
-        public static IEnumerable<string> GetFiles(string path, string filesFilter = null)
+        public static IEnumerable<string> GetFiles(string path, string filesFilter = null, bool fullPath = false)
         {
             try
             {
-                if (new DriveInfo(path).IsReady)
+                if (fullPath)
                 {
-                    if (string.IsNullOrWhiteSpace(filesFilter))
+                    if (new DriveInfo(path).IsReady)
                     {
-                        return new DirectoryInfo(path)
-                        .EnumerateFiles()
-                        .Where(d => (d.Attributes & (FileAttributes.Hidden | FileAttributes.System)) == 0)
-                        .Select(f => f.Name)
-                        .ToList();
+                        if (string.IsNullOrWhiteSpace(filesFilter))
+                        {
+                            return new DirectoryInfo(path)
+                            .EnumerateFiles()
+                            .Where(d => (d.Attributes & (FileAttributes.Hidden | FileAttributes.System)) == 0)
+                            .Select(f => f.FullName)
+                            .ToList();
+                        }
+                        else
+                        {
+                            var extensionArray = filesFilter.Split('|');
+                            var files = new DirectoryInfo(path).EnumerateFiles();
+                            return files
+                            .Join(extensionArray, f => f.Extension, e => e, (f, e) => f)
+                            .Where(d => (d.Attributes & (FileAttributes.Hidden | FileAttributes.System)) == 0)
+                            .Select(f => f.FullName)
+                            .ToList();
+                        }
                     }
-                    else
-                    {
-                        var extensionArray = filesFilter.Split('|');
-                        var files = new DirectoryInfo(path).EnumerateFiles();
-                        return files
-                        .Join(extensionArray, f => f.Extension, e => e, (f, e) => f)
-                        .Where(d => (d.Attributes & (FileAttributes.Hidden | FileAttributes.System)) == 0)
-                        .Select(f => f.Name)
-                        .ToList();
-                    }
+                    return Enumerable.Empty<string>();
                 }
-                return Enumerable.Empty<string>();
+                else
+                {
+                    if (new DriveInfo(path).IsReady)
+                    {
+                        if (string.IsNullOrWhiteSpace(filesFilter))
+                        {
+                            return new DirectoryInfo(path)
+                            .EnumerateFiles()
+                            .Where(d => (d.Attributes & (FileAttributes.Hidden | FileAttributes.System)) == 0)
+                            .Select(f => f.Name)
+                            .ToList();
+                        }
+                        else
+                        {
+                            var extensionArray = filesFilter.Split('|');
+                            var files = new DirectoryInfo(path).EnumerateFiles();
+                            return files
+                            .Join(extensionArray, f => f.Extension, e => e, (f, e) => f)
+                            .Where(d => (d.Attributes & (FileAttributes.Hidden | FileAttributes.System)) == 0)
+                            .Select(f => f.Name)
+                            .ToList();
+                        }
+                    }
+                    return Enumerable.Empty<string>();
+                }
             }
             catch (DirectoryNotFoundException)
             {

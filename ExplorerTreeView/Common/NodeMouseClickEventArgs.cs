@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExplorerTreeView
 {
@@ -11,8 +8,8 @@ namespace ExplorerTreeView
         public NodeMouseClickEventArgs(Node node)
         {
             Path = node.Path;
-            Files = node.Files;
-            Folders = node.Folders;
+            Files = node.FilesNames;
+            Folders = node.FoldersNames;
         }
 
         public string Path { get; }
