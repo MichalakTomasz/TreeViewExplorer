@@ -1,6 +1,4 @@
-﻿using Autofac;
-using Ninject;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -39,7 +37,11 @@ namespace ExplorerTreeView
         }
 
         public static readonly DependencyProperty ShowFilesProperty =
-            DependencyProperty.Register("ShowFiles", typeof(bool?), typeof(ExplorerTreeView), new PropertyMetadata(null, OnShowFilesChanged));
+            DependencyProperty.Register(
+                "ShowFiles", 
+                typeof(bool?), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null, OnShowFilesChanged));
         
         public ICommand Command
         {
@@ -48,7 +50,11 @@ namespace ExplorerTreeView
         }
 
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand), typeof(ExplorerTreeView), new PropertyMetadata(null, OnCommandChanged));
+            DependencyProperty.Register(
+                "Command", 
+                typeof(ICommand), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null, OnCommandChanged));
 
         public object CommandParameter
         {
@@ -57,7 +63,11 @@ namespace ExplorerTreeView
         }
         
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register("CommandParameter", typeof(object), typeof(ExplorerTreeView), new PropertyMetadata(null));
+            DependencyProperty.Register(
+                "CommandParameter", 
+                typeof(object), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null));
 
         public IInputElement CommandTarget
         {
@@ -66,7 +76,10 @@ namespace ExplorerTreeView
         }
         
         public static readonly DependencyProperty CommandTargetProperty =
-            DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(ExplorerTreeView));
+            DependencyProperty.Register(
+                "CommandTarget", 
+                typeof(IInputElement), 
+                typeof(ExplorerTreeView));
         
         public Node SelectedNode
         {
@@ -75,7 +88,11 @@ namespace ExplorerTreeView
         }
 
         public static readonly DependencyProperty SelectedNodeProperty =
-            DependencyProperty.Register("SelectedNode", typeof(Node), typeof(ExplorerTreeView), new PropertyMetadata(null));
+            DependencyProperty.Register(
+                "SelectedNode", 
+                typeof(Node), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null));
 
         public string ExpandPath
         {
@@ -84,7 +101,11 @@ namespace ExplorerTreeView
         }
         
         public static readonly DependencyProperty ExpandPathProperty =
-            DependencyProperty.Register("ExpandPath", typeof(string), typeof(ExplorerTreeView), new PropertyMetadata(string.Empty, OnExpandPathChanged));
+            DependencyProperty.Register(
+                "ExpandPath", 
+                typeof(string), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(string.Empty, OnExpandPathChanged));
 
         public string FilesFilter
         {
@@ -93,7 +114,11 @@ namespace ExplorerTreeView
         }
         
         public static readonly DependencyProperty FilesFilterProperty =
-            DependencyProperty.Register("FilesFilter", typeof(string), typeof(ExplorerTreeView), new PropertyMetadata(null, OnFilesFilterChanged));
+            DependencyProperty.Register(
+                "FilesFilter", 
+                typeof(string), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null, OnFilesFilterChanged));
 
         public bool? IsRootNodeExpanded
         {
@@ -102,13 +127,19 @@ namespace ExplorerTreeView
         }
         
         public static readonly DependencyProperty IsRootNodeExpandedProperty =
-            DependencyProperty.Register("IsRootNodeExpanded", typeof(bool?), typeof(ExplorerTreeView), new PropertyMetadata(null, OnIsRootNodeExpandedChanged));
+            DependencyProperty.Register(
+                "IsRootNodeExpanded", 
+                typeof(bool?), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null, OnIsRootNodeExpandedChanged));
 
         #endregion//Dependency Properties
 
         #region Methods
 
-        private static void OnShowFilesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnShowFilesChanged(
+            DependencyObject d, 
+            DependencyPropertyChangedEventArgs e)
         {
             var tree = d as ExplorerTreeView;
             var newValue = (bool?)e.NewValue;
@@ -118,7 +149,9 @@ namespace ExplorerTreeView
             }  
         }
 
-        private static void OnFilesFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnFilesFilterChanged(
+            DependencyObject d, 
+            DependencyPropertyChangedEventArgs e)
         {
             var tree = d as ExplorerTreeView;
             if (tree != null)
@@ -128,7 +161,9 @@ namespace ExplorerTreeView
             }
         }
 
-        private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnCommandChanged(
+            DependencyObject d, 
+            DependencyPropertyChangedEventArgs e)
         {
             var tree = d as ExplorerTreeView;
             if (tree != null)
@@ -146,7 +181,9 @@ namespace ExplorerTreeView
             }
         }
 
-        private static void OnExpandPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnExpandPathChanged(
+            DependencyObject d, 
+            DependencyPropertyChangedEventArgs e)
         {
             var tree = d as ExplorerTreeView;
             if (tree != null)
@@ -155,13 +192,16 @@ namespace ExplorerTreeView
             }
         }
 
-        private static void OnIsRootNodeExpandedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsRootNodeExpandedChanged(
+            DependencyObject d, 
+            DependencyPropertyChangedEventArgs e)
         {
             var tree = d as ExplorerTreeView;
             var newValue = (bool?)e.NewValue;
             if (tree != null && newValue != null)
             {
-                if (tree.IsRootNodeExpanded.Value) tree.ExplorerService.RefreshNode(tree._rootNode);
+                if (tree.IsRootNodeExpanded.Value)
+                    tree.ExplorerService.RefreshNode(tree._rootNode);
                 tree.ExplorerService.RootNode.IsExpanded = newValue.Value;
             }
         }
@@ -263,7 +303,10 @@ namespace ExplorerTreeView
 
         #region Events
 
-        public delegate void NodeLeftButtonMouseClickEventHandler(object sender, NodeMouseClickEventArgs e);
+        public delegate void NodeLeftButtonMouseClickEventHandler(
+            object sender, 
+            NodeMouseClickEventArgs e);
+
         public event NodeLeftButtonMouseClickEventHandler NodeLeftButtonMouseClick;
 
         #endregion
