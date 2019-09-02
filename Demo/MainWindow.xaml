@@ -31,7 +31,7 @@
         <StackPanel Grid.Row="0" 
                     Grid.Column="1">
             <TextBlock Text="Folders:"/>
-            <ListView Height="200" ItemsSource="{Binding ElementName=tree, Path=Folders}">
+            <ListView Height="200" ItemsSource="{Binding ElementName=tree, Path=FoldersNames}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}"/>
@@ -39,7 +39,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <TextBlock Text="Files:"/>
-            <ListView Height="200" ItemsSource="{Binding ElementName=tree, Path=Files}">
+            <ListView Height="200" ItemsSource="{Binding ElementName=tree, Path=FilesNames}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}"/>

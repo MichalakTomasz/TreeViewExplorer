@@ -11,6 +11,8 @@ namespace ExplorerTreeView
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null) return null;
+
             switch (value.ToString())
             {
                 case "Root":
@@ -21,6 +23,8 @@ namespace ExplorerTreeView
                     return GetImageFromName(value.ToString());
                 case "Folder":
                     return GetImageFromName(value.ToString());
+                case "Unknown":
+                    return GetImageFromName("Hdd");
                 default:
                     return GetImageFromPath(value.ToString());
             }
