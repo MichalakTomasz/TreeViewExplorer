@@ -135,8 +135,6 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null));
 
-
-
         public IEnumerable<string> FilesFullPath
         {
             get { return (IEnumerable<string>)GetValue(FilesFullPathProperty); }
@@ -168,7 +166,7 @@ namespace ExplorerTreeView
 
 
         /// <summary>
-        /// Gets and Sets files filter which will be returned or displayed
+        /// Gets or Sets files filter which will be returned or displayed
         /// </summary>
         public string FilesFilter
         {
@@ -298,9 +296,13 @@ namespace ExplorerTreeView
                 ExplorerService.RefreshNode(node);
                 SelectedNode = CreateExplorerNode(node);
                 if (SelectedNode?.FoldersNames?.Count() > 0) FoldersNames = new List<string>(SelectedNode.FoldersNames);
+                else FoldersNames = null;
                 if (SelectedNode?.FoldersFullPath?.Count() > 0) FoldersFullPath = new List<string>(SelectedNode.FoldersFullPath);
+                else FoldersFullPath = null;
                 if (SelectedNode?.FilesNames?.Count() > 0) FilesNames = new List<string>(SelectedNode.FilesNames);
+                else FilesNames = null;
                 if (SelectedNode?.FilesFullPath?.Count() > 0) FilesFullPath = new List<string>(SelectedNode.FilesFullPath);
+                else FilesFullPath = null;
 
                 if (NodeLeftButtonMouseClick != null)
                     NodeLeftButtonMouseClick(this, new NodeMouseClickEventArgs(SelectedNode));

@@ -76,7 +76,6 @@ namespace ExplorerTreeView
                 }
                 else FilesNames = Enumerable.Empty<string>();
 
-
                 return (IEnumerable<string>)GetValue(FilesNamesProperty);
             }
             set { SetValue(FilesNamesProperty, value); }
@@ -113,8 +112,6 @@ namespace ExplorerTreeView
                 typeof(IEnumerable<string>), 
                 typeof(Node), 
                 new PropertyMetadata(null));
-
-
 
         private string FilesFilter { get; }
     }
