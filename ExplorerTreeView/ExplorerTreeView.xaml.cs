@@ -150,6 +150,9 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null));
 
+        /// <summary>
+        /// Sets path to expand
+        /// </summary>
         public string ExpandPath
         {
             get { return (string)GetValue(ExpandPathProperty); }
@@ -163,6 +166,10 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(string.Empty, OnExpandPathChanged));
 
+
+        /// <summary>
+        /// Gets and Sets files filter which will be returned or displayed
+        /// </summary>
         public string FilesFilter
         {
             get { return (string)GetValue(FilesFilterProperty); }

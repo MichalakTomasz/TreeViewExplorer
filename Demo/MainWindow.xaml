@@ -25,8 +25,7 @@
                                Grid.Column="0"
                                Command="{Binding NodeClickCommand}"
                                NodeLeftButtonMouseClick="ExplorerTreeView_NodeLeftButtonMouseClick"
-                               ShowFiles="False"
-                               FilesFilter=".mp3|.pdf" 
+                               ShowFiles="False" 
                                FilesNames="{Binding Files, Mode=OneWayToSource}"/>
         <StackPanel Grid.Row="0" 
                     Grid.Column="1">

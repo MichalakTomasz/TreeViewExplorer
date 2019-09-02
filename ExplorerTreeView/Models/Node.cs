@@ -1,35 +1,68 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace ExplorerTreeView
 {
-    public class Node
+    public class Node : DependencyObject
     {
         public Node(string filesFilter = null)
             => FilesFilter = filesFilter;
 
-        public string Path { get; set; }
+        public string Path
+        {
+            get { return (string)GetValue(PathProperty); }
+            set { SetValue(PathProperty, value); }
+        }
+
+        public static readonly DependencyProperty PathProperty =
+            DependencyProperty.Register(
+                "Path", 
+                typeof(string), 
+                typeof(Node), 
+                new PropertyMetadata(null));
 
         public IEnumerable<string> FoldersNames
         {
             get
             {
                 if (!FileService.IsFile(Path) && DirectoriesService.Exist(Path))
-                    return DirectoriesService.GetFolders(Path);
-                return Enumerable.Empty<string>();
+                    FoldersNames = DirectoriesService.GetFolders(Path);
+                else FoldersNames = Enumerable.Empty<string>();
+
+                return (IEnumerable<string>)GetValue(FoldersNamesProperty);
             }
+            set { SetValue(FoldersNamesProperty, value); }
         }
 
+        public static readonly DependencyProperty FoldersNamesProperty =
+            DependencyProperty.Register(
+                "FoldersNames", 
+                typeof(IEnumerable<string>), 
+                typeof(Node), 
+                new PropertyMetadata(null));
+        
         public IEnumerable<string> FoldersFullPath
         {
             get
             {
                 if (!FileService.IsFile(Path) && DirectoriesService.Exist(Path))
-                    return DirectoriesService.GetFolders(Path, fullPath:true);
-                return Enumerable.Empty<string>();
+                    FoldersFullPath = DirectoriesService.GetFolders(Path, fullPath: true);
+                else FoldersFullPath = Enumerable.Empty<string>();
+
+                return (IEnumerable<string>)GetValue(FoldersFullPathProperty);
             }
+            set { SetValue(FoldersFullPathProperty, value); }
         }
 
+        public static readonly DependencyProperty FoldersFullPathProperty =
+            DependencyProperty.Register(
+                "FoldersFullPath", 
+                typeof(IEnumerable<string>), 
+                typeof(Node), 
+                new PropertyMetadata(null));
+                
         public IEnumerable<string> FilesNames
         {
             get
@@ -37,13 +70,24 @@ namespace ExplorerTreeView
                 if (!FileService.IsFile(Path) && DirectoriesService.Exist(Path))
                 {
                     if (!string.IsNullOrWhiteSpace(FilesFilter))
-                        return FileService.GetFiles(Path, FilesFilter);
+                        FilesNames = FileService.GetFiles(Path, FilesFilter);
                     else
-                        return FileService.GetFiles(Path);
+                        FilesNames = FileService.GetFiles(Path);
                 }
-                return Enumerable.Empty<string>();
+                else FilesNames = Enumerable.Empty<string>();
+
+
+                return (IEnumerable<string>)GetValue(FilesNamesProperty);
             }
+            set { SetValue(FilesNamesProperty, value); }
         }
+
+        public static readonly DependencyProperty FilesNamesProperty =
+            DependencyProperty.Register(
+                "FilesNames", 
+                typeof(IEnumerable<string>), 
+                typeof(Node), 
+                new PropertyMetadata(null));
 
         public IEnumerable<string> FilesFullPath
         {
@@ -52,13 +96,25 @@ namespace ExplorerTreeView
                 if (!FileService.IsFile(Path) && DirectoriesService.Exist(Path))
                 {
                     if (!string.IsNullOrWhiteSpace(FilesFilter))
-                        return FileService.GetFiles(Path, FilesFilter, fullPath:true);
+                        FilesFullPath = FileService.GetFiles(Path, FilesFilter, fullPath: true);
                     else
-                        return FileService.GetFiles(Path, fullPath:true);
+                        FilesFullPath = FileService.GetFiles(Path, fullPath: true);
                 }
-                return Enumerable.Empty<string>();
+                else FilesFullPath = Enumerable.Empty<string>();
+
+                return (IEnumerable<string>)GetValue(FilesFullPathProperty);
             }
+            set { SetValue(FilesFullPathProperty, value); }
         }
+
+        public static readonly DependencyProperty FilesFullPathProperty =
+            DependencyProperty.Register(
+                "FilesFullPath", 
+                typeof(IEnumerable<string>), 
+                typeof(Node), 
+                new PropertyMetadata(null));
+
+
 
         private string FilesFilter { get; }
     }
