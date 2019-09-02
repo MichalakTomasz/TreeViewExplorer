@@ -23,7 +23,7 @@ namespace ExplorerTreeView
                 case System.IO.DriveType.Fixed:
                     return DriveType.Hdd;
                 case System.IO.DriveType.Network:
-                    return DriveType.Unknown;
+                    return DriveType.Network;
                 case System.IO.DriveType.CDRom:
                     return DriveType.CdRom;
                 case System.IO.DriveType.Ram:

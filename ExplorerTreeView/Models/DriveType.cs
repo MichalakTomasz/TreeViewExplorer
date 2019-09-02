@@ -6,6 +6,7 @@
         CdRom,
         PenDrive,
         SoftDisc,
+        Network,
         Unknown
     }
 }

@@ -23,6 +23,8 @@ namespace ExplorerTreeView
                     return GetImageFromName(value.ToString());
                 case "Folder":
                     return GetImageFromName(value.ToString());
+                case "Network":
+                    return GetImageFromName(value.ToString());
                 case "Unknown":
                     return GetImageFromName("Hdd");
                 default:
