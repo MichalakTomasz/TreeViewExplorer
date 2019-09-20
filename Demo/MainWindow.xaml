@@ -48,7 +48,7 @@
         </StackPanel>
         <StatusBar Grid.Row="1" Grid.ColumnSpan="2">
             <StatusBarItem>
-                <TextBlock Text="{Binding ElementName=tree, Path=SelectedNode.Path, StringFormat=Path: {0}}"/>
+                <TextBlock Text="{Binding ElementName=tree, Path=SelectedPath, StringFormat=Path: {0}}"/>
             </StatusBarItem>
         </StatusBar>
     </Grid>

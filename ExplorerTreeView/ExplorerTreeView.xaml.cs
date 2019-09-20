@@ -194,6 +194,19 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null, OnIsRootNodeExpandedChanged));
 
+        public string SelectedPath
+        {
+            get { return (string)GetValue(SelectedPathProperty); }
+            set { SetValue(SelectedPathProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectedPathProperty =
+            DependencyProperty.Register(
+                "SelectedPath", 
+                typeof(string), 
+                typeof(ExplorerTreeView), 
+                new PropertyMetadata(null));
+
         #endregion//Dependency Properties
 
         #region Methods
@@ -295,14 +308,19 @@ namespace ExplorerTreeView
             {
                 ExplorerService.RefreshNode(node);
                 SelectedNode = CreateExplorerNode(node);
-                if (SelectedNode?.FoldersNames?.Count() > 0) FoldersNames = new List<string>(SelectedNode.FoldersNames);
+                if (SelectedNode?.FoldersNames?.Count() > 0)
+                    FoldersNames = new List<string>(SelectedNode.FoldersNames);
                 else FoldersNames = null;
-                if (SelectedNode?.FoldersFullPath?.Count() > 0) FoldersFullPath = new List<string>(SelectedNode.FoldersFullPath);
+                if (SelectedNode?.FoldersFullPath?.Count() > 0)
+                    FoldersFullPath = new List<string>(SelectedNode.FoldersFullPath);
                 else FoldersFullPath = null;
-                if (SelectedNode?.FilesNames?.Count() > 0) FilesNames = new List<string>(SelectedNode.FilesNames);
+                if (SelectedNode?.FilesNames?.Count() > 0)
+                    FilesNames = new List<string>(SelectedNode.FilesNames);
                 else FilesNames = null;
-                if (SelectedNode?.FilesFullPath?.Count() > 0) FilesFullPath = new List<string>(SelectedNode.FilesFullPath);
+                if (SelectedNode?.FilesFullPath?.Count() > 0)
+                    FilesFullPath = new List<string>(SelectedNode.FilesFullPath);
                 else FilesFullPath = null;
+                SelectedPath = SelectedNode.Path;
 
                 if (NodeLeftButtonMouseClick != null)
                     NodeLeftButtonMouseClick(this, new NodeMouseClickEventArgs(SelectedNode));
