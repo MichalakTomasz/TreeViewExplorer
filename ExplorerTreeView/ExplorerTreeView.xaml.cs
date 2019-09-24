@@ -22,7 +22,7 @@ namespace ExplorerTreeView
 
             _dispatcherTimer = new DispatcherTimer();
             _dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
-            _dispatcherTimer.Tick += dispatcherTimer_Tick; ;
+            _dispatcherTimer.Tick += DispatcherTimer_Tick; ;
             _dispatcherTimer.Start();
 
             IsRootNodeExpanded = true;
@@ -163,8 +163,7 @@ namespace ExplorerTreeView
                 typeof(string), 
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(string.Empty, OnExpandPathChanged));
-
-
+        
         /// <summary>
         /// Gets or Sets files filter which will be returned or displayed
         /// </summary>
@@ -209,7 +208,28 @@ namespace ExplorerTreeView
 
         #endregion//Dependency Properties
 
-        #region Methods
+        #region Public Methods
+
+        public void Refresh()
+        {
+            if (SelectedNode?.FoldersNames?.Count() > 0)
+                FoldersNames = new List<string>(SelectedNode.FoldersNames);
+            else FoldersNames = null;
+            if (SelectedNode?.FoldersFullPath?.Count() > 0)
+                FoldersFullPath = new List<string>(SelectedNode.FoldersFullPath);
+            else FoldersFullPath = null;
+            if (SelectedNode?.FilesNames?.Count() > 0)
+                FilesNames = new List<string>(SelectedNode.FilesNames);
+            else FilesNames = null;
+            if (SelectedNode?.FilesFullPath?.Count() > 0)
+                FilesFullPath = new List<string>(SelectedNode.FilesFullPath);
+            else FilesFullPath = null;
+            SelectedPath = SelectedNode.Path;
+        }
+
+        #endregion//Public Methods
+
+        #region Private Methods
 
         private static void OnShowFilesChanged(
             DependencyObject d, 
@@ -322,8 +342,7 @@ namespace ExplorerTreeView
                 else FilesFullPath = null;
                 SelectedPath = SelectedNode.Path;
 
-                if (NodeLeftButtonMouseClick != null)
-                    NodeLeftButtonMouseClick(this, new NodeMouseClickEventArgs(SelectedNode));
+                NodeLeftButtonMouseClick?.Invoke(this, new NodeMouseClickEventArgs(SelectedNode));
                 if (Command != null)
                 {
                     RoutedCommand command = Command as RoutedCommand;
@@ -375,13 +394,13 @@ namespace ExplorerTreeView
             }
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             ExplorerService.RefreshNode(_rootNode);
             tree.UpdateDefaultStyle();
         }
 
-        #endregion//Methods
+        #endregion//Private Methods
 
         #region Properties
 
