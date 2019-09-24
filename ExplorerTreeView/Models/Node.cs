@@ -114,5 +114,4 @@ namespace ExplorerTreeView
 
         private string FilesFilter { get; }
     }
-
 }

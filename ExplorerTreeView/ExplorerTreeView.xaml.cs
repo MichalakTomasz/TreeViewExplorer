@@ -27,7 +27,7 @@ namespace ExplorerTreeView
 
             IsRootNodeExpanded = true;
         }
-        
+
         #endregion//Constructor
 
         #region Dependency Properties

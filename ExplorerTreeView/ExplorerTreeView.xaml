@@ -7,27 +7,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="300">
     <UserControl.Resources>
-        <local:StringToImagePathConverter x:Key="StringToImagePathConverter"/>
+        <local:StringToImagePathConverter x:Key="StringToImagePathConverter" />
     </UserControl.Resources>
-    <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                      VerticalScrollBarVisibility="Auto">
-            <TreeView x:Name="tree" PreviewMouseLeftButtonDown="TreeView_PreviewMouseLeftButtonDown">
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="TreeViewItem">
-                        <Setter Property="IsExpanded"
-                                Value="{Binding IsExpanded, Mode=TwoWay}"/>
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Items, Mode=TwoWay}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Height="12" Margin="0,0,5,0" Source="{Binding ImageName, Converter={StaticResource StringToImagePathConverter}}" />
-                            <TextBlock Text="{Binding Text}"/>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </ScrollViewer>
-    </Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  CanContentScroll="False">
+        <TreeView x:Name="tree"
+                  PreviewMouseLeftButtonDown="TreeView_PreviewMouseLeftButtonDown">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter 
+                        Property="IsExpanded"
+                        Value="{Binding IsExpanded, Mode=TwoWay}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate 
+                    ItemsSource="{Binding Items, Mode=TwoWay}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image 
+                            Height="12"
+                            Margin="0,0,5,0"
+                            Source="{
+                            Binding ImageName, 
+                            Converter={StaticResource StringToImagePathConverter}}" />
+                        <TextBlock Text="{Binding Text}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+    </ScrollViewer>
 </UserControl>
