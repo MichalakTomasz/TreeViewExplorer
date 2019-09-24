@@ -213,16 +213,16 @@ namespace ExplorerTreeView
         public void Refresh()
         {
             if (SelectedNode?.FoldersNames?.Count() > 0)
-                FoldersNames = new List<string>(SelectedNode.FoldersNames);
+                FoldersNames = SelectedNode.FoldersNames;
             else FoldersNames = null;
             if (SelectedNode?.FoldersFullPath?.Count() > 0)
-                FoldersFullPath = new List<string>(SelectedNode.FoldersFullPath);
+                FoldersFullPath = SelectedNode.FoldersFullPath;
             else FoldersFullPath = null;
             if (SelectedNode?.FilesNames?.Count() > 0)
-                FilesNames = new List<string>(SelectedNode.FilesNames);
+                FilesNames = SelectedNode.FilesNames;
             else FilesNames = null;
             if (SelectedNode?.FilesFullPath?.Count() > 0)
-                FilesFullPath = new List<string>(SelectedNode.FilesFullPath);
+                FilesFullPath = SelectedNode.FilesFullPath;
             else FilesFullPath = null;
             SelectedPath = SelectedNode.Path;
         }
@@ -328,19 +328,7 @@ namespace ExplorerTreeView
             {
                 ExplorerService.RefreshNode(node);
                 SelectedNode = CreateExplorerNode(node);
-                if (SelectedNode?.FoldersNames?.Count() > 0)
-                    FoldersNames = new List<string>(SelectedNode.FoldersNames);
-                else FoldersNames = null;
-                if (SelectedNode?.FoldersFullPath?.Count() > 0)
-                    FoldersFullPath = new List<string>(SelectedNode.FoldersFullPath);
-                else FoldersFullPath = null;
-                if (SelectedNode?.FilesNames?.Count() > 0)
-                    FilesNames = new List<string>(SelectedNode.FilesNames);
-                else FilesNames = null;
-                if (SelectedNode?.FilesFullPath?.Count() > 0)
-                    FilesFullPath = new List<string>(SelectedNode.FilesFullPath);
-                else FilesFullPath = null;
-                SelectedPath = SelectedNode.Path;
+                Refresh();
 
                 NodeLeftButtonMouseClick?.Invoke(this, new NodeMouseClickEventArgs(SelectedNode));
                 if (Command != null)
