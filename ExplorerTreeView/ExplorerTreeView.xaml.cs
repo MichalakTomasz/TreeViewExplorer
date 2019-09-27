@@ -27,11 +27,14 @@ namespace ExplorerTreeView
 
             IsRootNodeExpanded = true;
         }
-
+        
         #endregion//Constructor
 
         #region Dependency Properties
 
+        /// <summary>
+        /// Gets or sets information that files are visible or not in visual tree
+        /// </summary>
         public bool? ShowFiles
         {
             get { return (bool?)GetValue(ShowFilesProperty); }
@@ -45,6 +48,10 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null, OnShowFilesChanged));
         
+
+        /// <summary>
+        /// Occurs when tree node was clicked
+        /// </summary>
         public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }
@@ -83,6 +90,9 @@ namespace ExplorerTreeView
                 typeof(IInputElement), 
                 typeof(ExplorerTreeView));
         
+        /// <summary>
+        /// Gets object which contains information about selected node
+        /// </summary>
         public Node SelectedNode
         {
             get { return (Node)GetValue(SelectedNodeProperty); }
@@ -96,6 +106,9 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets foldernames collection from selected node
+        /// </summary>
         public IEnumerable<string> FoldersNames
         {
             get { return (IEnumerable<string>)GetValue(FoldersNamesProperty); }
@@ -108,7 +121,10 @@ namespace ExplorerTreeView
                 typeof(IEnumerable<string>), 
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null));
-        
+
+        /// <summary>
+        /// Gets full path collection of folders from selected node
+        /// </summary>
         public IEnumerable<string> FoldersFullPath
         {
             get { return (IEnumerable<string>)GetValue(FoldersFullPathProperty); }
@@ -122,6 +138,9 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets filename collection from selected node
+        /// </summary>
         public IEnumerable<string> FilesNames
         {
             get { return (IEnumerable<string>)GetValue(FilesNamesProperty); }
@@ -135,6 +154,9 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets full path collection of files from selected node
+        /// </summary>
         public IEnumerable<string> FilesFullPath
         {
             get { return (IEnumerable<string>)GetValue(FilesFullPathProperty); }
@@ -180,6 +202,9 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null, OnFilesFilterChanged));
 
+        /// <summary>
+        /// Gets or sets information whether visual tree root node will be expanded or not
+        /// </summary>
         public bool? IsRootNodeExpanded
         {
             get { return (bool?)GetValue(IsRootNodeExpandedProperty); }
@@ -193,6 +218,9 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null, OnIsRootNodeExpandedChanged));
 
+        /// <summary>
+        /// Get selected path
+        /// </summary>
         public string SelectedPath
         {
             get { return (string)GetValue(SelectedPathProperty); }
@@ -210,6 +238,9 @@ namespace ExplorerTreeView
 
         #region Public Methods
 
+        /// <summary>
+        /// Refreshes all properties which contains informations about current selected node
+        /// </summary>
         public void Refresh()
         {
             if (SelectedNode?.FoldersNames?.Count() > 0)
@@ -224,7 +255,19 @@ namespace ExplorerTreeView
             if (SelectedNode?.FilesFullPath?.Count() > 0)
                 FilesFullPath = SelectedNode.FilesFullPath;
             else FilesFullPath = null;
-            SelectedPath = SelectedNode.Path;
+            if (SelectedNode?.Path != null)
+                SelectedPath = SelectedNode.Path;
+            else SelectedPath = null;
+        }
+
+        /// <summary>
+        /// Refreshes all properties whih contains informations about current selected node and execute mouse left button click and command event
+        /// </summary>
+        public void ExecuteSelectedNodeEvents()
+        {
+            Refresh();
+            ExecuteNodeLeftButtonMouceClick();
+            ExecuteCommand();
         }
 
         #endregion//Public Methods
@@ -238,9 +281,7 @@ namespace ExplorerTreeView
             var tree = d as ExplorerTreeView;
             var newValue = (bool?)e.NewValue;
             if (tree != null && newValue != null)
-            {
                 tree.ExplorerService.ShowFiles = newValue.Value;
-            }  
         }
 
         private static void OnFilesFilterChanged(
@@ -330,17 +371,26 @@ namespace ExplorerTreeView
                 SelectedNode = CreateExplorerNode(node);
                 Refresh();
 
-                NodeLeftButtonMouseClick?.Invoke(this, new NodeMouseClickEventArgs(SelectedNode));
-                if (Command != null)
-                {
-                    RoutedCommand command = Command as RoutedCommand;
-                    if (command != null)
-                    {
-                        command.Execute(CommandParameter, CommandTarget);
-                    }
-                    else Command.Execute(CommandParameter);
-                }
+                ExecuteNodeLeftButtonMouceClick();
+                ExecuteCommand();
             } 
+        }
+
+        private void ExecuteNodeLeftButtonMouceClick()
+        {
+            if (NodeLeftButtonMouseClick != null)
+                NodeLeftButtonMouseClick?.Invoke(this, new NodeMouseClickEventArgs(SelectedNode));
+        }
+
+        private void ExecuteCommand()
+        {
+            if (Command != null)
+            {
+                RoutedCommand command = Command as RoutedCommand;
+                if (command != null)
+                    command.Execute(CommandParameter, CommandTarget);
+                else Command.Execute(CommandParameter);
+            }
         }
 
         private Node CreateExplorerNode(IBaseNode node)
@@ -360,24 +410,14 @@ namespace ExplorerTreeView
                 if (command != null)
                 {
                     if (command.CanExecute(CommandParameter, CommandTarget))
-                    {
                         IsEnabled = true;
-                    }
-                    else
-                    {
-                        IsEnabled = false;
-                    }
+                    else IsEnabled = false;
                 }
                 else
                 {
                     if (Command.CanExecute(CommandParameter))
-                    {
                         IsEnabled = true;
-                    }
-                    else
-                    {
-                        IsEnabled = false;
-                    }
+                    else IsEnabled = false;
                 }
             }
         }

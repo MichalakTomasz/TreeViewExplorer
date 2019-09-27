@@ -10,10 +10,14 @@ namespace ExplorerTreeView
             Path = node.Path;
             Files = node.FilesNames;
             Folders = node.FoldersNames;
+            FilesFullPath = node.FilesFullPath;
+            FoldersFullPath = node.FoldersFullPath;
         }
 
         public string Path { get; }
         public IEnumerable<string> Files { get; }
         public IEnumerable<string> Folders { get; }
+        public IEnumerable<string> FilesFullPath { get; }
+        public IEnumerable<string> FoldersFullPath { get; }
     }
 }

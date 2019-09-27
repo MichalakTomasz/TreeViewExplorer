@@ -50,8 +50,7 @@ namespace ExplorerTreeView
             }
             else return resourceImage;
         }
-
-
+        
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

@@ -1,7 +1,6 @@
 ﻿using ExplorerTreeView;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -22,6 +21,7 @@ namespace Demo.ViewModel
                 return _nodeClickCommand;
             }
         }
+
         private Node _nodes;
         public Node Nodes
         {
