@@ -33,7 +33,7 @@ namespace ExplorerTreeView
         #region Dependency Properties
 
         /// <summary>
-        /// Gets or sets information that files are visible or not in visual tree
+        /// Gets or sets information whether files are visible or not in visual tree
         /// </summary>
         public bool? ShowFiles
         {
@@ -48,7 +48,6 @@ namespace ExplorerTreeView
                 typeof(ExplorerTreeView), 
                 new PropertyMetadata(null, OnShowFilesChanged));
         
-
         /// <summary>
         /// Occurs when tree node was clicked
         /// </summary>
@@ -261,7 +260,8 @@ namespace ExplorerTreeView
         }
 
         /// <summary>
-        /// Refreshes all properties whih contains informations about current selected node and execute mouse left button click and command event
+        /// Refreshes all properties whih contains informations about current selected node 
+        /// and execute mouse left button click and command event
         /// </summary>
         public void ExecuteSelectedNodeEvents()
         {
